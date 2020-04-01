@@ -21,24 +21,39 @@
      -->
     <script>
         function detectMob() {
-            const toMatch = [
-                /Android/i,
-                /webOS/i,
+            const appletoMatch = [
                 /iPhone/i,
                 /iPad/i,
                 /iPod/i,
-                /BlackBerry/i,
-                /Windows Phone/i
+            ];
+            const androidtoMatch = [
+                /Android/i,
             ];
 
-            return toMatch.some((toMatchItem) => {
+            var isApple = appletoMatch.some((toMatchItem) => {
                 return navigator.userAgent.match(toMatchItem);
             });
+            var isAndroid = androidtoMatch.some((toMatchItem) => {
+                return navigator.userAgent.match(toMatchItem);
+            });
+
+            return isApple ? "apple" : isAndroid ? "android" : "web";
         }
         window.onload = function () {
+            var platform = detectMob()
+
             //window.location = 'cirkulaapp://start';
-            alert(detectMob())
-            //setTimeout("window.location = 'http://hastrk.com/serve?action=click&publisher_id=1&site_id=2';", 1000);
+            setTimeout(() => {
+                if (platform == "apple") {
+                    window.location = ("https://apps.apple.com/us/app/cirkula/id1494229369");
+                } else
+                if (platform == "android") {
+                    window.location = "https://play.google.com/store/apps/details?id=com.cirkulacons";
+
+                }
+            }, 1000)
+
+
         }
     </script>
 </head>
