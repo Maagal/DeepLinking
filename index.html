@@ -1,16 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0, maximum-scale=1.0" />
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,minimum-scale=1.0, maximum-scale=1.0"
+    />
     <title>Site Name</title>
     <style>
-        @media screen and (max-device-width:480px) {
-            body {
-                -webkit-text-size-adjust: none
-            }
+      @media screen and (max-device-width: 480px) {
+        body {
+          -webkit-text-size-adjust: none;
         }
+      }
     </style>
 
     <!-- implement javascript on web page that first first tries to open the deep link
@@ -20,56 +22,48 @@
         to download app from app store.
      -->
     <script>
-        function detectMob() {
-            const appletoMatch = [
-                /iPhone/i,
-                /iPad/i,
-                /iPod/i,
-            ];
-            const androidtoMatch = [
-                /Android/i,
-            ];
+      function detectMob() {
+        const appletoMatch = [/iPhone/i, /iPad/i, /iPod/i];
+        const androidtoMatch = [/Android/i];
 
-            var isApple = appletoMatch.some((toMatchItem) => {
-                return navigator.userAgent.match(toMatchItem);
-            });
-            var isAndroid = androidtoMatch.some((toMatchItem) => {
-                return navigator.userAgent.match(toMatchItem);
-            });
+        var isApple = appletoMatch.some((toMatchItem) => {
+          return navigator.userAgent.match(toMatchItem);
+        });
+        var isAndroid = androidtoMatch.some((toMatchItem) => {
+          return navigator.userAgent.match(toMatchItem);
+        });
 
-            return isApple ? "apple" : isAndroid ? "android" : "web";
-        }
-        window.onload = function () {
-            var platform = detectMob()
+        return isApple ? "apple" : isAndroid ? "android" : "web";
+      }
+      window.onload = function () {
+        var platform = detectMob();
 
-            //window.location = 'cirkulaapp://start';
-            setTimeout(() => {
-                if (platform == "apple") {
-                    window.location = ("https://apps.apple.com/us/app/cirkula/id1494229369");
-                } else
-                if (platform == "android") {
-                    window.location = "https://play.google.com/store/apps/details?id=com.cirkulacons";
-
-                }
-            }, 1000)
-
-
-        }
+        window.location = "cirkulaapp://start";
+        setTimeout(() => {
+          if (platform == "apple") {
+            window.location =
+              "https://apps.apple.com/us/app/cirkula/id1494229369";
+          } else if (platform == "android") {
+            window.location =
+              "https://play.google.com/store/apps/details?id=com.cirkulacons";
+          }
+        }, 1000);
+      };
     </script>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <!-- button to Download App for new app users -->
-    <form action="http://hastrk.com/serve?action=click&publisher_id=1&site_id=2" target="_blank">
-        <input type="submit" value="Download" />
+    <form
+      action="http://hastrk.com/serve?action=click&publisher_id=1&site_id=2"
+      target="_blank"
+    >
+      <input type="submit" value="Download" />
     </form>
 
     <!-- button to Open App to specific screen for existing app users -->
     <form action="yourapp://app.com/?screen=xxxxx" target="_blank">
-        <input type="submit" value="Open App" />
+      <input type="submit" value="Open App" />
     </form>
-
-</body>
-
+  </body>
 </html>
