@@ -1,61 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width,minimum-scale=1.0, maximum-scale=1.0"
-    />
-    <title>Site Name</title>
-    <style>
-      @media screen and (max-device-width: 480px) {
-        body {
-          -webkit-text-size-adjust: none;
-        }
-      }
-    </style>
 
-    <!-- implement javascript on web page that first first tries to open the deep link
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width,minimum-scale=1.0, maximum-scale=1.0" />
+  <title>Site Name</title>
+  <style>
+    @media screen and (max-device-width: 480px) {
+      body {
+        -webkit-text-size-adjust: none;
+      }
+    }
+  </style>
+
+  <!-- implement javascript on web page that first first tries to open the deep link
         1. if user has app installed, then they would be redirected to open the app to specified screen
         2. if user doesn't have app installed, then their browser wouldn't recognize the URL scheme
         and app wouldn't open since it's not installed. In 1 second (1000 milliseconds) user is redirected
         to download app from app store.
      -->
-    <script>
-      function detectMob() {
-        const appletoMatch = [/iPhone/i, /iPad/i, /iPod/i];
-        const androidtoMatch = [/Android/i];
+  <script>
+    function detectMob() {
+      const appletoMatch = [/iPhone/i, /iPad/i, /iPod/i];
+      const androidtoMatch = [/Android/i];
 
-        var isApple = appletoMatch.some((toMatchItem) => {
-          return navigator.userAgent.match(toMatchItem);
-        });
-        var isAndroid = androidtoMatch.some((toMatchItem) => {
-          return navigator.userAgent.match(toMatchItem);
-        });
+      var isApple = appletoMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+      });
+      var isAndroid = androidtoMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+      });
 
-        return isApple ? "apple" : isAndroid ? "android" : "web";
+      return isApple ? "apple" : isAndroid ? "android" : "web";
+    }
+    window.onload = function () {
+      var platform = detectMob();
+      var appLink = "cirkulaapp://start"
+      var appstoreLink
+      if (platform == "apple") {
+        appstoreLink = "https://apps.apple.com/us/app/cirkula/id1494229369";
+      } else if (platform == "android") {
+        appstoreLink = "https://play.google.com/store/apps/details?id=com.cirkulacons";
       }
-      window.onload = function () {
-        var platform = detectMob();
+      window.location.replace(appLink, '_system')
 
-        window.location = "cirkulaapp://start";
+      setTimeout(() => window.location.replace(appstoreLink, '_system'), 2000)
+      //window.open(appstoreLink, '_system')
+      /* try {
+        window.location.replace("cirkulaapp://start");
+        window.ope
         setTimeout(() => {
           if (platform == "apple") {
-            window.location =
-              "https://apps.apple.com/us/app/cirkula/id1494229369";
+            window.location.replace(
+              "https://apps.apple.com/us/app/cirkula/id1494229369");
           } else if (platform == "android") {
-            window.location =
-              "https://play.google.com/store/apps/details?id=com.cirkulacons";
+            window.location.replace(
+              "https://play.google.com/store/apps/details?id=com.cirkulacons");
           }
-        }, 1000);
-      };
-    </script>
-  </head>
+        }, 3000);
 
-  <body>
-    <!-- button to Open App to specific screen for existing app users -->
-    <form action="cirkulaapp://start" target="_blank">
-      <input type="submit" value="Open App" />
-    </form>
-  </body>
+      } catch (error) {
+        alert(error)
+      } */
+    };
+  </script>
+</head>
+
+<body>
+</body>
+
 </html>
