@@ -55,7 +55,12 @@
       window.onload = function () {
         /*  if(!isMobileDevice()) return; */
         var platform = detectMob();
-        if (platform === "web") return;
+        if (platform === "web") {
+          return;
+        } else {
+          var view = document.getElementsByClassName("view");
+          if (view) view[0].setAttribute("hidden", "true");
+        }
         var appLink = "cirkulaapp://start";
         var appstoreLink;
         if (platform == "apple") {
@@ -74,7 +79,7 @@
     </script>
   </head>
 
-  <body>
+  <body class="view">
     <div class="logoContainer">
       <img src="assets/logo.png" class="logo" />
     </div>
