@@ -55,6 +55,9 @@
       window.onload = function () {
         /*  if(!isMobileDevice()) return; */
         var platform = detectMob();
+        const urlObj = new URL(url);
+        const params = urlObj.searchParams;
+        let store = params.get("store");
         if (platform === "web") {
           var view = document.getElementsByClassName("view");
           if (view) view[0].removeAttribute("hidden");
@@ -62,18 +65,22 @@
         }
         appLink = "cirkulaapp://start";
         var appstoreLink;
-        if (platform == "apple") {
-          appstoreLink = "https://apps.apple.com/us/app/cirkula/id1494229369";
-        } else if (platform == "android") {
-          appstoreLink =
-            "https://play.google.com/store/apps/details?id=com.cirkulacons";
+        if (store) {
+          appLink = "cirkulaapp://store/" + store;
+          window.location.replace(appLink, "_system");
+        } else {
+          if (platform == "apple") {
+            appstoreLink = "https://apps.apple.com/us/app/cirkula/id1494229369";
+          } else if (platform == "android") {
+            appstoreLink =
+              "https://play.google.com/store/apps/details?id=com.cirkulacons";
+          }
+          window.location.replace(appLink, "_system");
+          setTimeout(
+            () => window.location.replace(appstoreLink, "_system"),
+            2000
+          );
         }
-        window.location.replace(appLink, "_system");
-
-        setTimeout(
-          () => window.location.replace(appstoreLink, "_system"),
-          2000
-        );
       };
     </script>
   </head>
