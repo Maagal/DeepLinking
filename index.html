@@ -58,6 +58,7 @@
         const params = new URLSearchParams(window.location.search);
         let store = params.get("store");
         let zone = params.get("zone");
+        let mall = params.get("mall");
         if (platform === "web") {
           var view = document.getElementsByClassName("view");
           if (view) view[0].removeAttribute("hidden");
@@ -71,6 +72,9 @@
           return;
         } else if (zone) {
           appLink = "cirkulaapp://zone/" + zone;
+          window.location.replace(appLink, "_system");
+        } else if (mall) {
+          appLink = "cirkulaapp://mall/" + mall;
           window.location.replace(appLink, "_system");
         } else {
           if (platform == "apple") {
