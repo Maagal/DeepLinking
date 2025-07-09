@@ -55,9 +55,9 @@
       window.onload = function () {
         /*  if(!isMobileDevice()) return; */
         var platform = detectMob();
-        const urlObj = new URL(url);
-        const params = urlObj.searchParams;
+        const params = new URLSearchParams(window.location.search);
         let store = params.get("store");
+        console.log("store", store)
         if (platform === "web") {
           var view = document.getElementsByClassName("view");
           if (view) view[0].removeAttribute("hidden");
