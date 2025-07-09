@@ -57,7 +57,7 @@
         var platform = detectMob();
         const params = new URLSearchParams(window.location.search);
         let store = params.get("store");
-        console.log("store", store)
+        let zone = params.get("zone");
         if (platform === "web") {
           var view = document.getElementsByClassName("view");
           if (view) view[0].removeAttribute("hidden");
@@ -67,6 +67,10 @@
         var appstoreLink;
         if (store) {
           appLink = "cirkulaapp://store/" + store;
+          window.location.replace(appLink, "_system");
+          return;
+        } else if (zone) {
+          appLink = "cirkulaapp://zone/" + zone;
           window.location.replace(appLink, "_system");
         } else {
           if (platform == "apple") {
